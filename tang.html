@@ -1,0 +1,40 @@
+// Tạo trái tim bay liên tục
+const heartsContainer = document.querySelector('.hearts');
+const heartEmojis = ['💖', '💕', '🌸', '💗', '🌷', '💐', '❤️'];
+
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+  heart.style.left = Math.random() * 100 + '%';
+  heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+  heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createHeart, 400);
+
+// Nút bấm bất ngờ
+const wishes = [
+  '🌷 Chúc các bạn nữ 6A8 luôn rạng rỡ!',
+  '💐 Chúc các cô giáo thật nhiều sức khỏe!',
+  '🌸 Mong 6A8 mãi đoàn kết và yêu thương!',
+  '💖 20/10 vui vẻ, hạnh phúc nhé cả nhà!',
+  '🌹 Chúc mọi điều tốt đẹp nhất sẽ đến!'
+];
+
+function showLove() {
+  const surprise = document.getElementById('surprise');
+  const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+  surprise.textContent = randomWish;
+  surprise.style.animation = 'none';
+  void surprise.offsetWidth;
+  surprise.style.animation = 'pop 0.5s ease';
+
+  // Bắn pháo hoa trái tim
+  for (let i = 0; i < 15; i++) {
+    setTimeout(createHeart, i * 50);
+  }
+}
