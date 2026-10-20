@@ -1,0 +1,135 @@
+/* ============================================
+   SCRIPT CHÚC MỪNG 20/10 - LỚP 6A8 💐
+   ============================================ */
+
+(function () {
+  "use strict";
+
+  // ---------- 1. DANH SÁCH LỜI CHÚC ----------
+  const wishes = [
+    "🌷 Chúc các bạn nữ lớp 6A8 luôn xinh đẹp và rạng rỡ!",
+    "💐 Chúc các cô giáo thật nhiều sức khỏe và hạnh phúc!",
+    "🌸 Mong tập thể 6A8 mãi đoàn kết và yêu thương nhau!",
+    "💖 Chúc mừng ngày Phụ nữ Việt Nam 20/10 vui vẻ!",
+    "🌹 Chúc mọi điều tốt đẹp nhất sẽ đến với các bạn nữ 6A8!",
+    "💕 Chúc một nửa thế giới của 6A8 luôn tỏa sáng!",
+    "🎀 Chúc các bạn nữ học giỏi, chăm ngoan, xinh tươi!",
+  ];
+
+  // ---------- 2. HIỆU ỨNG TRÁI TIM BAY ----------
+  const heartEmojis = ["💖", "💕", "🌸", "💗", "🌷", "💐", "❤️", "🌺"];
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "twenty-ten-heart";
+    heart.textContent =
+      heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+    heart.style.cssText = `
+      position: fixed;
+      left: ${Math.random() * 100}%;
+      bottom: -40px;
+      font-size: ${Math.random() * 20 + 15}px;
+      pointer-events: none;
+      z-index: 9999;
+      animation: twentyTenRise ${Math.random() * 4 + 4}s linear forwards;
+    `;
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+  }
+
+  // Chèn CSS animation cho trái tim
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes twentyTenRise {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ---------- 3. HIỆN POPUP CHÚC MỪNG ----------
+  function showGreeting() {
+    // Tạo lớp phủ mờ
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10000;
+      opacity: 0; transition: opacity 0.4s ease;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    `;
+
+    // Tạo hộp thiệp
+    const card = document.createElement("div");
+    card.style.cssText = `
+      background: linear-gradient(135deg, #fff0f6, #ffe4ec);
+      padding: 35px 30px;
+      border-radius: 25px;
+      max-width: 90vw; width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(233, 30, 99, 0.4);
+      border: 3px solid #ffb6c1;
+      transform: scale(0.7);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    `;
+
+    const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+
+    card.innerHTML = `
+      <div style="font-size: 2.5rem; margin-bottom: 10px;">🌸💐🌷</div>
+      <h1 style="color:#e91e63; font-size:1.9rem; margin:0 0 8px;">Happy 20/10</h1>
+      <h2 style="color:#c2185b; font-size:1.3rem; margin:0 0 18px;">Lớp 6A8 💖</h2>
+      <p style="color:#555; line-height:1.7; font-size:1rem; margin-bottom:20px;">
+        ${randomWish}
+      </p>
+      <button id="tt-close" style="
+        background: linear-gradient(135deg, #ff6b9d, #e91e63);
+        color: #fff; border: none; padding: 12px 32px;
+        border-radius: 50px; font-size: 1rem; cursor: pointer;
+        box-shadow: 0 5px 15px rgba(233,30,99,.4);
+        transition: transform .2s;
+      ">💌 Cảm ơn!</button>
+    `;
+
+    overlay.appendChild(card);
+    documentở.body.appendChild(overlay);
+
+    // Hiệu ứng hiện ra
+    requestAnimationFrame(() => {
+      overlay.style.opacity = "1";
+      card.style.transform = " lạiscale(1)";
+    });
+
+    // Bắn trái tim
+    for (let i = 0; i < 20; i++) |
+ setTimeout(createHeart, i * 80);
+
+    // Nút đóng
+    card.querySelector("#tt-close").addEventListener("click", ()| => {
+      overlay.style.opacity = "0";
+      card.style.transform = "scale(0.7)";
+      setTimeout(() => overlay.remove(), 400);
+    });
+
+    // 📱 Click nền để đóng
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) card.querySelector("#tt-close").click();
+    });
+  }
+
+  // ** ---------- 4. CHẠY TỰ ĐỘNG ----------
+  // Tạo trái tim bay liên tục
+  setInterval(createHeart, 500);
+
+  // Hiện thiệp sau 0.8 giây
+  setTimeout(showGreeting, 800);
+
+  // Cho phép gọi lại từ console: showTwentyTen()
+  window.showTwentyTen = showGreeting;
+
+  console.log("💐 Chúc mừng 20/10 - Lớp 6A8! 💖");
+})();
